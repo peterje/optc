@@ -19,7 +19,7 @@ import { Toaster } from "solid-toast";
 export const [model_open, set_model_open] = createSignal(false)
 export default function Root() {
   return (
-    <Html lang="en" class="bg-[url(public/bg.jpg)] bg-cover bg-repeat-round p-16 bg-fixed">
+    <Html lang="en" class="bg-[url(/img/bg.jpg)] bg-cover bg-repeat-round p-16 bg-fixed">
       <Head>
         <Link rel="preconnect" href="https://fonts.googleapis.com" />
         <Link rel="preconnect" href="https://fonts.gstatic.com" />
