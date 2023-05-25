@@ -1,0 +1,14 @@
+{
+  "src/entry-client.css": {
+    "file": "assets/entry-client-01a7f7a1.css",
+    "src": "src/entry-client.css"
+  },
+  "src/entry-client.tsx": {
+    "css": [
+      "assets/entry-client-01a7f7a1.css"
+    ],
+    "file": "assets/entry-client-577a8657.js",
+    "isEntry": true,
+    "src": "src/entry-client.tsx"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "/": [],
+  "entry-client": [
+    {
+      "type": "script",
+      "href": "/assets/entry-client-577a8657.js"
+    },
+    {
+      "type": "style",
+      "href": "/assets/entry-client-01a7f7a1.css"
+    }
+  ],
+  "index.html": []
+}

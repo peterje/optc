@@ -1,0 +1,96 @@
+{
+  "\u0000/home/runner/work/optc/optc/node_modules/file-saver/dist/FileSaver.min.js?commonjs-module": [
+  ],
+  "\u0000commonjsHelpers.js": [
+  ],
+  "node_modules/@solidjs/meta/dist/index.jsx": [
+  ],
+  "node_modules/@solidjs/router/dist/components.jsx": [
+  ],
+  "node_modules/@solidjs/router/dist/integration.js": [
+  ],
+  "node_modules/@solidjs/router/dist/lifecycle.js": [
+  ],
+  "node_modules/@solidjs/router/dist/routing.js": [
+  ],
+  "node_modules/@solidjs/router/dist/utils.js": [
+  ],
+  "node_modules/base64-arraybuffer/dist/base64-arraybuffer.es5.js": [
+  ],
+  "node_modules/file-saver/dist/FileSaver.min.js": [
+  ],
+  "node_modules/html2canvas/dist/html2canvas.esm.js": [
+  ],
+  "node_modules/solid-js/dist/solid.js": [
+  ],
+  "node_modules/solid-js/store/dist/store.js": [
+  ],
+  "node_modules/solid-js/web/dist/web.js": [
+  ],
+  "node_modules/solid-start/entry-client/StartClient.tsx": [
+  ],
+  "node_modules/solid-start/entry-client/mount.tsx": [
+  ],
+  "node_modules/solid-start/error-boundary/ErrorBoundary.tsx": [
+  ],
+  "node_modules/solid-start/root/Document.tsx": [
+  ],
+  "node_modules/solid-start/root/Scripts.tsx": [
+  ],
+  "node_modules/solid-start/server/ServerContext.tsx": [
+  ],
+  "node_modules/solid-start/server/types.tsx": [
+  ],
+  "node_modules/solid-toast/dist/source/components/ErrorIcon.jsx": [
+  ],
+  "node_modules/solid-toast/dist/source/components/IconCircle.jsx": [
+  ],
+  "node_modules/solid-toast/dist/source/components/LoaderIcon.jsx": [
+  ],
+  "node_modules/solid-toast/dist/source/components/SuccessIcon.jsx": [
+  ],
+  "node_modules/solid-toast/dist/source/components/ToastBar.jsx": [
+  ],
+  "node_modules/solid-toast/dist/source/components/ToastContainer.jsx": [
+  ],
+  "node_modules/solid-toast/dist/source/components/Toaster.jsx": [
+  ],
+  "node_modules/solid-toast/dist/source/core/defaults.js": [
+  ],
+  "node_modules/solid-toast/dist/source/core/store.js": [
+  ],
+  "node_modules/solid-toast/dist/source/core/toast.js": [
+  ],
+  "node_modules/solid-toast/dist/source/types/store.js": [
+  ],
+  "node_modules/solid-toast/dist/source/types/toast.js": [
+  ],
+  "node_modules/solid-toast/dist/source/util/styles.js": [
+  ],
+  "node_modules/solid-toast/dist/source/util/util.js": [
+  ],
+  "src/components/LegendIcon.tsx": [
+  ],
+  "src/components/Modal.tsx": [
+  ],
+  "src/components/ModeSelect.tsx": [
+  ],
+  "src/components/Operations.tsx": [
+  ],
+  "src/components/Statistics.tsx": [
+  ],
+  "src/data/evolutions.json": [
+  ],
+  "src/data/flairs.json": [
+  ],
+  "src/data/state.ts": [
+  ],
+  "src/entry-client.tsx": [
+  ],
+  "src/root.css": [
+  ],
+  "src/root.tsx": [
+  ],
+  "src/routes/index.tsx": [
+  ]
+}
