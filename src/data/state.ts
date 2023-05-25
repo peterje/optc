@@ -1,0 +1,68 @@
+
+import { createSignal } from "solid-js"
+import { Part, createStore } from "solid-js/store"
+import legendIDs from "~/data/flairs.json"
+import evolutions from "~/data/evolutions.json"
+
+/* Constants */
+const MAX_LEVEL = 5
+
+/* Data Types */
+export type ClickHandler = (id: number) => void
+export type Legend = {
+    id: number
+    level: number
+    selected: boolean
+    rainbow: boolean
+    super_rainbow: boolean
+    removed_by_user: boolean
+    removed_by_evolution_setting: boolean
+}
+
+const create_legend = (legend_id: number): Legend => ({ id: legend_id, level: 0, rainbow: false, super_rainbow: false, selected: false, removed_by_user: false, removed_by_evolution_setting: false })
+
+/* Global State */
+export const [legend_click_handler, set_legend_click_handler] = createSignal<ClickHandler>((id: number) => toggle_property("selected", id))
+
+export const [legends, set_legends] = createStore<Legend[]>(legendIDs.map((id) => create_legend(id)));
+const is_client = typeof window !== 'undefined'
+const cached_legends = is_client ? localStorage.getItem("legends") : null
+if (cached_legends) {
+    set_legends(JSON.parse(cached_legends))
+}
+export const [evolutions_hidden, set_evolutions_hidden] = createSignal(false)
+const evolution_ids: Set<number> = new Set(evolutions.map(entry => entry.evoID))
+export const is_evolution = (id: number): boolean => evolution_ids.has(id)
+
+export const update_cached_legends = () => {
+    if (is_client) {
+        localStorage.setItem("legends", JSON.stringify(legends))
+    }
+}
+
+/* Atomic State Operations */
+export const reset_all_legends = () => {
+    set_legends((legends) => legends.map((legend) => create_legend(legend.id)))
+    update_cached_legends()
+}
+export const toggle_property = (property: Part<Legend>, id?: number) => {
+    if (id) set_legends(e => e.id === id, property, v => !v)
+    else set_legends(e => true, property, v => !v)
+    update_cached_legends()
+}
+export const increase_level = (id: number) => {
+    set_legends(e => e.id === id, "level", v => (v + 1) % (MAX_LEVEL + 1))
+    update_cached_legends()
+}
+export const unhide_all_removed_legends = () => {
+    set_legends(() => true, "removed_by_user", () => false)
+    update_cached_legends()
+}
+export const select_all_legends = () => {
+    set_legends(() => true, "selected", () => true)
+    update_cached_legends()
+}
+export const toggle_show_evolutions = () => {
+    set_legends((e) => is_evolution(e.id), "removed_by_evolution_setting", v => !v)
+    update_cached_legends()
+}

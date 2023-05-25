@@ -1,0 +1,334 @@
+[
+    {
+        "baseID": 261,
+        "evoID": 1413
+    },
+    {
+        "baseID": 367,
+        "evoID": 1619
+    },
+    {
+        "baseID": 416,
+        "evoID": 1445
+    },
+    {
+        "baseID": 459,
+        "evoID": 1847
+    },
+    {
+        "baseID": 530,
+        "evoID": 1707
+    },
+    {
+        "baseID": 562,
+        "evoID": 1816
+    },
+    {
+        "baseID": 649,
+        "evoID": 2868
+    },
+    {
+        "baseID": 669,
+        "evoID": 1492
+    },
+    {
+        "baseID": 718,
+        "evoID": 1881
+    },
+    {
+        "baseID": 720,
+        "evoID": 1927
+    },
+    {
+        "baseID": 748,
+        "evoID": 1663
+    },
+    {
+        "baseID": 870,
+        "evoID": 2444
+    },
+    {
+        "baseID": 935,
+        "evoID": 2066
+    },
+    {
+        "baseID": 1001,
+        "evoID": 2195
+    },
+    {
+        "baseID": 1035,
+        "evoID": 1928
+    },
+    {
+        "baseID": 1045,
+        "evoID": 2001
+    },
+    {
+        "baseID": 1085,
+        "evoID": 2954
+    },
+    {
+        "baseID": 1123,
+        "evoID": 2357
+    },
+    {
+        "baseID": 1192,
+        "evoID": 1764
+    },
+    {
+        "baseID": 1240,
+        "evoID": 2034
+    },
+    {
+        "baseID": 1268,
+        "evoID": 3154
+    },
+    {
+        "baseID": 1314,
+        "evoID": 2578
+    },
+    {
+        "baseID": 1362,
+        "evoID": 1921
+    },
+    {
+        "baseID": 1391,
+        "evoID": 2035
+    },
+    {
+        "baseID": 1404,
+        "evoID": 1593
+    },
+    {
+        "baseID": 1434,
+        "evoID": 1880
+    },
+    {
+        "baseID": 1473,
+        "evoID": 2631
+    },
+    {
+        "baseID": 1532,
+        "evoID": 1543
+    },
+    {
+        "baseID": 1571,
+        "evoID": 2372
+    },
+    {
+        "baseID": 1588,
+        "evoID": 2245
+    },
+    {
+        "baseID": 1610,
+        "evoID": 2232
+    },
+    {
+        "baseID": 1652,
+        "evoID": 2373
+    },
+    {
+        "baseID": 1698,
+        "evoID": 2159
+    },
+    {
+        "baseID": 1747,
+        "evoID": 2434
+    },
+    {
+        "baseID": 1751,
+        "evoID": 1922
+    },
+    {
+        "baseID": 1763,
+        "evoID": 2784
+    },
+    {
+        "baseID": 1794,
+        "evoID": 2814
+    },
+    {
+        "baseID": 1832,
+        "evoID": 2138
+    },
+    {
+        "baseID": 1869,
+        "evoID": 2505
+    },
+    {
+        "baseID": 1883,
+        "evoID": 3018
+    },
+    {
+        "baseID": 1910,
+        "evoID": 3550
+    },
+    {
+        "baseID": 1935,
+        "evoID": 2300
+    },
+    {
+        "baseID": 1951,
+        "evoID": 2830
+    },
+    {
+        "baseID": 2023,
+        "evoID": 3625
+    },
+    {
+        "baseID": 2025,
+        "evoID": 3592
+    },
+    {
+        "baseID": 2074,
+        "evoID": 2363
+    },
+    {
+        "baseID": 2076,
+        "evoID": 2588
+    },
+    {
+        "baseID": 2113,
+        "evoID": 2739
+    },
+    {
+        "baseID": 2201,
+        "evoID": 3693
+    },
+    {
+        "baseID": 2234,
+        "evoID": 2500
+    },
+    {
+        "baseID": 2251,
+        "evoID": 2991
+    },
+    {
+        "baseID": 2265,
+        "evoID": 3048
+    },
+    {
+        "baseID": 2302,
+        "evoID": 3079
+    },
+    {
+        "baseID": 2418,
+        "evoID": 3868
+    },
+    {
+        "baseID": 2433,
+        "evoID": 3448
+    },
+    {
+        "baseID": 2477,
+        "evoID": 3202
+    },
+    {
+        "baseID": 2651,
+        "evoID": 2681
+    },
+    {
+        "baseID": 2686,
+        "evoID": 2909
+    },
+    {
+        "baseID": 2148,
+        "evoID": 3211
+    },
+    {
+        "baseID": 2236,
+        "evoID": 3510
+    },
+    {
+        "baseID": 2338,
+        "evoID": 3417
+    },
+    {
+        "baseID": 2365,
+        "evoID": 3666
+    },
+    {
+        "baseID": 2441,
+        "evoID": 3393
+    },
+    {
+        "baseID": 2465,
+        "evoID": 3298
+    },
+    {
+        "baseID": 2475,
+        "evoID": 3240
+    },
+    {
+        "baseID": 2577,
+        "evoID": 3828
+    },
+    {
+        "baseID": 2741,
+        "evoID": 3742
+    },
+    {
+        "baseID": 2774,
+        "evoID": 3275
+    },
+    {
+        "baseID": 2776,
+        "evoID": 3350
+    },
+    {
+        "baseID": 2797,
+        "evoID": 3784
+    },
+    {
+        "baseID": 2837,
+        "evoID": 3469
+    },
+    {
+        "baseID": 2862,
+        "evoID": 3845
+    },
+    {
+        "baseID": 2960,
+        "evoID": 3718
+    },
+    {
+        "baseID": 2964,
+        "evoID": 3739
+    },
+    {
+        "baseID": 2980,
+        "evoID": 3762
+    },
+    {
+        "baseID": 3009,
+        "evoID": 3805
+    },
+    {
+        "baseID": 3071,
+        "evoID": 3369
+    },
+    {
+        "baseID": 3175,
+        "evoID": 3519
+    },
+    {
+        "baseID": 3177,
+        "evoID": 3786
+    },
+    {
+        "baseID": 3334,
+        "evoID": 3814
+    },
+    {
+        "baseID": 3429,
+        "evoID": 3430
+    },
+    {
+        "baseID": 3680,
+        "evoID": 3721
+    },
+    {
+        "baseID": 3680,
+        "evoID": 3816
+    }
+]
