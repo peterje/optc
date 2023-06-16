@@ -32,19 +32,29 @@ export const num_total_legends = legendIDs.length
 export const is_evolution = (id: number): boolean => evolution_ids.has(id)
 const is_client = typeof window !== 'undefined'
 const cached_legends = is_client ? localStorage.getItem("legends") : null
+export const update_cached_legends = () => {
+    if (is_client) {
+        localStorage.setItem("legends", JSON.stringify(legends))
+    }
+}
 if (cached_legends) {
     set_legends(JSON.parse(cached_legends))
     // Determine if show evolutions is on from cached legends
     const cached_evolutions = JSON.parse(cached_legends).filter((legend: Legend) => is_evolution(legend.id))
     const all_removed_by_evolution_setting = cached_evolutions.every((legend: Legend) => legend.removed_by_evolution_setting)
     set_evolutions_hidden(all_removed_by_evolution_setting)
-}
 
-export const update_cached_legends = () => {
-    if (is_client) {
-        localStorage.setItem("legends", JSON.stringify(legends))
+    // Determine if there are any new legends that need to be added to the cache
+    const current_legend_ids = new Set(JSON.parse(cached_legends).map((legend: Legend) => legend.id))
+    const missing_legend_ids = legendIDs.filter((id: number) => !current_legend_ids.has(id))
+    if (missing_legend_ids.length > 0) {
+        const missing_legends = missing_legend_ids.map((id: number) => create_legend(id))
+        const updated_legends = JSON.parse(cached_legends).concat(missing_legends)
+        set_legends(updated_legends)
+        update_cached_legends()
     }
 }
+
 
 /* Atomic State Operations */
 export const reset_all_legends = () => {
