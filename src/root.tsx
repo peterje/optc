@@ -37,7 +37,7 @@ export default function Root() {
         </Suspense>
         <Scripts />
           
-
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
       </Body>
     </Html>
   );

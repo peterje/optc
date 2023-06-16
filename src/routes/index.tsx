@@ -8,6 +8,7 @@ import { legend_click_handler, legends } from "~/data/state";
 export const Index = () => (
   <main class="flex flex-col justify-center justify-items-center text-center items-center">
     <div class="flex flex-col justify-center">
+      <span> 2019 - 2023. Created by <a class="link text-warning" href="https://www.reddit.com/user/antonlabz/">antonlabz</a>. Maintained by <a class="link text-warning" href="http://www.reddit.com/message/compose/?to=CubeoHS&amp;subject=OPTC%20Legend%20Checklist">CubeoHS</a> and <a href="https://github.com/peterje" class="link text-warning">peterje</a>.  </span>
       <img src="/img/header.png" class="w-min self-center"></img>
       <Statistics />
       <Operations />
