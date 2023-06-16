@@ -36,8 +36,6 @@ export default function Root() {
           </ErrorBoundary>
         </Suspense>
         <Scripts />
-          
-        <script async defer src="https://buttons.github.io/buttons.js"></script>
       </Body>
     </Html>
   );
