@@ -26,7 +26,7 @@ export const [legend_click_handler, set_legend_click_handler] = createSignal<Cli
 
 export const [legends, set_legends] = createStore<Legend[]>(legendIDs.map((id) => create_legend(id)));
 export const [evolutions_hidden, set_evolutions_hidden] = createSignal(false)
-const evolution_ids: Set<number> = new Set(evolutions.map(entry => entry.evoID))
+const evolution_ids: Set<number> = new Set(evolutions.map(entry => entry.baseID))
 export const is_evolution = (id: number): boolean => evolution_ids.has(id)
 const is_client = typeof window !== 'undefined'
 const cached_legends = is_client ? localStorage.getItem("legends") : null
