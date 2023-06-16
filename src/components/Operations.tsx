@@ -1,14 +1,24 @@
 import { Component, createSignal } from "solid-js"
 import { toast } from "solid-toast"
 import { encode, decode } from "base64-arraybuffer"
-import saveAs from "file-saver"
 import html2canvas from "html2canvas"
 import { Modal } from "./Modal"
 import { Legend, evolutions_hidden, legends, reset_all_legends, select_all_legends, set_legends, toggle_property, toggle_show_evolutions, unhide_all_removed_legends, update_cached_legends } from "~/data/state"
 import { LegendIcon } from "./LegendIcon"
+import { saveAs } from "file-saver"
 
 const [image_saving, set_image_saving] = createSignal(false)
-const save_image = () => { html2canvas(document.querySelector("#legend-grid") as HTMLDivElement).then(canvas => canvas.toBlob((image) => saveAs(image!, "legends.png"))).finally(() => set_image_saving(false)) }
+const save_image = () => {
+    const level_images = document.getElementsByClassName("level-image")
+    console.log(level_images)
+    for (let i = 0; i < level_images.length; i++) {
+        level_images[i].classList.add("hidden")
+    }
+    html2canvas(document.querySelector("#legend-grid") as HTMLDivElement, {scale: 1.5}).then(canvas => canvas.toBlob((image) => saveAs(image!, "legends.png"))).finally(() => set_image_saving(false))
+    for (let i = 0; i < level_images.length; i++) {
+        level_images[i].classList.remove("hidden")
+    }
+}
 
 const [import_code, set_import_code] = createSignal("")
 const export_share_code = () => navigator.clipboard.writeText(encode_legends(legends))
