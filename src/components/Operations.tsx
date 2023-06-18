@@ -3,7 +3,7 @@ import { toast } from "solid-toast"
 import { encode, decode } from "base64-arraybuffer"
 import html2canvas from "html2canvas"
 import { Modal } from "./Modal"
-import { Legend, evolutions_hidden, legends, reset_all_legends, select_all_legends, set_legends, toggle_property, toggle_show_evolutions, unhide_all_removed_legends, update_cached_legends } from "~/data/state"
+import { Legend, create_legend, evolutions_hidden, legendIDs, legends, reset_all_legends, select_all_legends, set_legends, toggle_property, toggle_show_evolutions, unhide_all_removed_legends, update_cached_legends } from "~/data/state"
 import { LegendIcon } from "./LegendIcon"
 import { saveAs } from "file-saver"
 
@@ -22,13 +22,37 @@ const save_image = () => {
 
 const [import_code, set_import_code] = createSignal("")
 const export_share_code = () => navigator.clipboard.writeText(encode_legends(legends))
+export const add_missing_legends = () => {
+    const new_legends = [...legends]
+    const existing_legends = new Set(legends.map((legend) => legend.id))
+    const missing_legends = legendIDs.filter((id) => !existing_legends.has(id))
+    for(const missing_legend of missing_legends) {
+        new_legends.push(create_legend(missing_legend))
+    }
+    set_legends(new_legends)
+    update_cached_legends()
+}
 const import_share_code = (share_code: string) => {
-    set_legends(decode_legends(share_code))
+    const decoded_legends = decode_legends(share_code)
+    // we are missing legends ???
+    const decoded_ids = decoded_legends.map((legend) => legend.id)
+    const existing_legends = new Set(legends.map((legend) => legend.id))
+
+    const duplicated_ids = decoded_ids.filter((id) => !existing_legends.has(id))
+
+    const missing_legends = legendIDs.filter((id) => !existing_legends.has(id))
+
+    for(const missing_legend of missing_legends) {
+        decoded_legends.push(create_legend(missing_legend))
+    }
+    set_legends(decoded_legends)
     update_cached_legends()
 }
 
 const encode_legends = (legends: Legend[]) => encode(new TextEncoder().encode(JSON.stringify(legends)))
-const decode_legends = (encoded: string) => JSON.parse(new TextDecoder().decode(decode(encoded)))
+const decode_legends = (encoded: string) => {
+    return JSON.parse(new TextDecoder().decode(decode(encoded))) as Legend[]
+}
 
 export const Operations: Component = () =>
 (

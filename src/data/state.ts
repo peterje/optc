@@ -1,8 +1,9 @@
 
 import { createSignal } from "solid-js"
 import { Part, createStore } from "solid-js/store"
-import legendIDs from "~/data/flairs.json"
-import evolutions from "~/data/evolutions.json"
+import { add_missing_legends } from "~/components/Operations"
+import legend_mapping from "~/data/legends.json"
+
 
 /* Constants */
 const MAX_LEVEL = 5
@@ -19,21 +20,60 @@ export type Legend = {
     removed_by_evolution_setting: boolean
 }
 
-const create_legend = (legend_id: number): Legend => ({ id: legend_id, level: 0, rainbow: false, super_rainbow: false, selected: false, removed_by_user: false, removed_by_evolution_setting: false })
+
+export type LegendCache = Record<number, Legend>
+export const build_cache = (): LegendCache => {
+    const new_cache: LegendCache = {}
+    legends.forEach((legend: Legend) => {
+        new_cache[legend.id] = legend
+    })
+    return new_cache
+}
+
+
+export type LegendEntry = {
+    baseID: number
+    evolutionIDs: number[]
+}
+
+export const evolution_map: Record<keyof typeof legend_mapping, number[]> = legend_mapping
+
+export const create_legend = (legend_id: number): Legend => ({ id: legend_id, level: 0, rainbow: false, super_rainbow: false, selected: false, removed_by_user: false, removed_by_evolution_setting: false })
 
 /* Global State */
 export const [legend_click_handler, set_legend_click_handler] = createSignal<ClickHandler>((id: number) => toggle_property("selected", id))
 
+const evolutionIDs = Object.values(legend_mapping).flat() as number[]
+export const baseIDs = Object.keys(legend_mapping).map((key) => parseInt(key))
+export const legendIDs = baseIDs.concat(evolutionIDs)
+
 export const [legends, set_legends] = createStore<Legend[]>(legendIDs.map((id) => create_legend(id)));
 export const [evolutions_hidden, set_evolutions_hidden] = createSignal(false)
-const evolution_ids: Set<number> = new Set(evolutions.map(entry => entry.baseID))
-export const num_unique_legends = legendIDs.length - evolution_ids.size
+export const num_unique_legends = baseIDs.length
 export const num_total_legends = legendIDs.length
-export const is_evolution = (id: number): boolean => evolution_ids.has(id)
+const evo_set = new Set(evolutionIDs)
+export const is_evolution = (id: number): boolean => evo_set.has(id)
 const is_client = typeof window !== 'undefined'
 const cached_legends = is_client ? localStorage.getItem("legends") : null
+export const [rendered_legends, set_rendered_legends] = createSignal<Legend[]>([])
+
+export const build_rendered_legends = () => {
+        const new_order = []
+        for (const unit_id of baseIDs) {
+            const evolution_ids = evolution_map[unit_id] as number[]
+            const legend = legends.find(l => l.id == unit_id) as Legend
+            new_order.push(legend)
+            for (const evolution_id of evolution_ids) {
+                const evolution = legends.find(l => l.id == evolution_id) as Legend
+                if (evolution == undefined) continue
+                new_order.push(evolution)
+            }
+        }
+        set_rendered_legends(new_order)
+}
 export const update_cached_legends = () => {
     if (is_client) {
+        build_rendered_legends()
         localStorage.setItem("legends", JSON.stringify(legends))
     }
 }
@@ -43,18 +83,9 @@ if (cached_legends) {
     const cached_evolutions = JSON.parse(cached_legends).filter((legend: Legend) => is_evolution(legend.id))
     const all_removed_by_evolution_setting = cached_evolutions.every((legend: Legend) => legend.removed_by_evolution_setting)
     set_evolutions_hidden(all_removed_by_evolution_setting)
-
-    // Determine if there are any new legends that need to be added to the cache
-    const current_legend_ids = new Set(JSON.parse(cached_legends).map((legend: Legend) => legend.id))
-    const missing_legend_ids = legendIDs.filter((id: number) => !current_legend_ids.has(id))
-    if (missing_legend_ids.length > 0) {
-        const missing_legends = missing_legend_ids.map((id: number) => create_legend(id))
-        const updated_legends = JSON.parse(cached_legends).concat(missing_legends)
-        set_legends(updated_legends)
-        update_cached_legends()
-    }
+    add_missing_legends()
 }
-
+build_rendered_legends()
 
 /* Atomic State Operations */
 export const reset_all_legends = () => {
