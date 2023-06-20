@@ -43,15 +43,23 @@ export const create_legend = (legend_id: number): Legend => ({ id: legend_id, le
 /* Global State */
 export const [legend_click_handler, set_legend_click_handler] = createSignal<ClickHandler>((id: number) => toggle_property("selected", id))
 
+type LegendID = keyof typeof legend_mapping
 const evolutionIDs = Object.values(legend_mapping).flat() as number[]
-export const baseIDs = Object.keys(legend_mapping).map((key) => parseInt(key))
+export const baseIDs = Object.keys(legend_mapping) as LegendID[]
 export const legendIDs = baseIDs.concat(evolutionIDs)
 
+const baseformIDs = []
+for(const baseID of baseIDs){
+    if(legend_mapping[baseID].length > 0){
+        baseformIDs.push(baseID)
+    }
+}
 export const [legends, set_legends] = createStore<Legend[]>(legendIDs.map((id) => create_legend(id)));
-export const [evolutions_hidden, set_evolutions_hidden] = createSignal(false)
+export const [evolutions_hidden, set_evolutions_hidden] = createSignal(JSON.parse(localStorage.getItem("evolutions_hidden") ?? "false"))
 export const num_unique_legends = baseIDs.length
 export const num_total_legends = legendIDs.length
-const evo_set = new Set(evolutionIDs)
+
+const evo_set: Set<number> = new Set(baseformIDs.map(Number))
 export const is_evolution = (id: number): boolean => evo_set.has(id)
 const is_client = typeof window !== 'undefined'
 const cached_legends = is_client ? localStorage.getItem("legends") : null
@@ -71,6 +79,7 @@ export const build_rendered_legends = () => {
         }
         set_rendered_legends(new_order)
 }
+
 export const update_cached_legends = () => {
     if (is_client) {
         build_rendered_legends()
