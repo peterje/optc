@@ -1,13 +1,10 @@
 import { Component } from "solid-js";
-import { useRouteData } from "solid-start";
-import { routeData } from "~/routes";
-import { Legend } from "~/data/state";
+import { legends } from "~/data/client";
+import { getLegendsDataFromJSON, Legend } from "~/data/state";
 export const Statistics: Component = () => {
-  const { localStorageLegends: legends, supportedLegends } = useRouteData<typeof routeData>()
-  if (!legends.latest || !supportedLegends.latest) return
-  const numUniqueLegends = supportedLegends().orderedIDs.length - supportedLegends().evolutionIDs.length
-  const numTotalLegends = supportedLegends().orderedIDs.length
-  const isBase = (legend: Legend) => !!supportedLegends().baseIDs.find(l => l == legend.id)
+  const numTotalLegends = getLegendsDataFromJSON().orderedIDs.length
+  const numUniqueLegends = numTotalLegends - getLegendsDataFromJSON().evolutionIDs.length
+  const isBase = (legend: Legend) => !!getLegendsDataFromJSON().baseIDs.find(l => l == legend.id)
   const isSelected = (legend: Legend) => legend.selected
   const selectedLegends = () => legends().filter(isSelected)
   const selectedBaseLegends = () => selectedLegends().filter(isBase)

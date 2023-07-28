@@ -1,39 +1,10 @@
-import { For, createEffect, createResource } from "solid-js";
-import { useRouteData } from "solid-start";
+import { For } from "solid-js";
 import { LegendIcon } from "~/components/LegendIcon";
 import { ModeSelect } from "~/components/ModeSelect";
 import { Operations } from "~/components/Operations";
 import { Statistics } from "~/components/Statistics";
-import { Legend, Settings, createLegend } from "~/data/state";
-import { LegendAPIResponse } from "./api/legends";
-
-const getSupportedLegends = async () => {
-  const response = await fetch("/api/legends")
-  return (await response.json()) as LegendAPIResponse
-}
-
-export function routeData() {
-  const [supportedLegends] = createResource(getSupportedLegends)
-  const [localStorageLegends, { mutate: mutateLegends }] = createResource(async () => {
-    const savedData = localStorage.getItem("legends")
-    if (savedData) {
-      return JSON.parse(savedData) as Legend[]
-    }
-    const newSaveData: Legend[] = (await getSupportedLegends()).orderedIDs.map(createLegend)
-    localStorage.setItem("legends", JSON.stringify(newSaveData))
-    return newSaveData
-  })
-  const [localStorageSettings, { mutate: mutateSettings }] = createResource(async () => {
-    const savedSettings = localStorage.getItem("settings")
-    if (savedSettings) {
-      return JSON.parse(savedSettings) as Settings
-    }
-    const newSettings: Settings = { hideBaseForms: false }
-    localStorage.setItem("settings", JSON.stringify(newSettings))
-    return newSettings
-  })
-  return { supportedLegends, localStorageLegends, localStorageSettings, mutateSettings, mutateLegends }
-}
+import { getLegendsDataFromJSON, Legend } from "~/data/state";
+import { legends } from "~/data/client"
 
 const sortByOrder = <T extends Legend>(arr: T[], order: string[]): T[] => {
   const orderMap: { [key: string]: number } = {};
@@ -50,25 +21,6 @@ const sortByOrder = <T extends Legend>(arr: T[], order: string[]): T[] => {
 }
 
 const Index = () => {
-  const { supportedLegends, localStorageLegends, localStorageSettings: settings, mutateLegends } = useRouteData<typeof routeData>();
-  createEffect(() => {
-    const savedData = localStorage.getItem("legends")
-    if (!supportedLegends.latest) return
-    if (savedData) {
-      mutateLegends(JSON.parse(savedData) as Legend[])
-    } else {
-      const newSaveData: Legend[] = supportedLegends().orderedIDs.map(createLegend)
-      localStorage.setItem("legends", JSON.stringify(newSaveData))
-      mutateLegends(newSaveData)
-    }
-  })
-  const isLoading = !supportedLegends.latest || !settings.latest || !localStorageLegends.latest
-  console.log(supportedLegends.latest, supportedLegends.error)
-  console.log(settings.latest, settings.error)
-  console.log(localStorageLegends.latest, localStorageLegends.error)
-  if (isLoading) return <span class="loading loading-spinner loading-md"></span>
-  createEffect(() => { localStorage.setItem("settings", JSON.stringify(settings())) })
-  createEffect(() => { localStorage.setItem("legends", JSON.stringify(localStorageLegends())) })
   return (
     <main class="flex flex-col justify-center justify-items-center text-center items-center">
       <div class="flex flex-col justify-center">
@@ -79,7 +31,7 @@ const Index = () => {
         <ModeSelect />
       </div>
       <div id="legend-grid" class="w-full bg-[url(/img/bg-main.png)] border-2 border-double rounded-md border-yellow-900 grid grid-cols-auto-fit p-8 gap-2 justify-center">
-        <For each={sortByOrder(localStorageLegends(), supportedLegends().orderedIDs)}>
+        <For each={sortByOrder(legends(), getLegendsDataFromJSON().orderedIDs)}>
           {(legend) => <LegendIcon legend={legend} />}
         </For >
       </div >

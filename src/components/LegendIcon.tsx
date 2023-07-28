@@ -1,21 +1,18 @@
-import { useRouteData } from "solid-start"
-import { Legend, by } from "~/data/state"
-import { routeData } from "~/routes"
+import { Legend, by, getLegendsDataFromJSON } from "~/data/state"
+import { legends, settings, setLegends } from "~/data/client"
 import { mode, Mode } from "./ModeSelect"
 import { mergeProps } from "solid-js"
 
 export const LegendIcon = (props: { legend: Legend, onClick?: (legend_id: string) => void, forceShow?: boolean }) => {
   const legend = props.legend
-  const { supportedLegends, localStorageSettings: settings, localStorageLegends: legends, mutateLegends: mutate } = useRouteData<typeof routeData>()
-  const isBaseForm = (legendID: string): boolean => !!supportedLegends.latest?.baseIDs.find(id => id === legendID)
-  if (!legends.latest) return
+  const isBaseForm = (legendID: string): boolean => !!getLegendsDataFromJSON().baseIDs.find(id => id === legendID)
   const defaultClickHandler = (id: string) => {
     switch (mode()) {
-      case Mode.Select: mutate(by(legends(), l => l.id === id, l => ({ ...l, selected: !l.selected }))); break
-      case Mode.Remove: mutate(by(legends(), l => l.id === id, l => ({ ...l, removed_by_user: true }))); break
-      case Mode.SuperRainbow: mutate(by(legends(), l => l.id === id, l => ({ ...l, super_rainbow: !l.super_rainbow }))); break
-      case Mode.Rainbow: mutate(by(legends(), l => l.id === id, l => ({ ...l, rainbow: !l.rainbow }))); break
-      case Mode.LLB: mutate(by(legends(), l => l.id === id, l => ({ ...l, level: (l.level + 1) % 6 }))); break
+      case Mode.Select: setLegends(by(legends(), l => l.id === id, l => ({ ...l, selected: !l.selected }))); break
+      case Mode.Remove: setLegends(by(legends(), l => l.id === id, l => ({ ...l, removed_by_user: true }))); break
+      case Mode.SuperRainbow: setLegends(by(legends(), l => l.id === id, l => ({ ...l, super_rainbow: !l.super_rainbow }))); break
+      case Mode.Rainbow: setLegends(by(legends(), l => l.id === id, l => ({ ...l, rainbow: !l.rainbow }))); break
+      case Mode.LLB: setLegends(by(legends(), l => l.id === id, l => ({ ...l, level: (l.level + 1) % 6 }))); break
       default: break
     }
   }
@@ -25,7 +22,7 @@ export const LegendIcon = (props: { legend: Legend, onClick?: (legend_id: string
       "icon-selected": legend.selected,
       "icon-rainbow": legend.rainbow,
       "icon-super-rainbow": legend.super_rainbow,
-      "icon-removed": !merged.forceShow && (legend.removed_by_user || (isBaseForm(legend.id) && settings.latest?.hideBaseForms)),
+      "icon-removed": !merged.forceShow && (legend.removed_by_user || (isBaseForm(legend.id) && settings().hideBaseForms)),
       "opacity-50 hover:opacity-80": !legend.selected && !legend.rainbow && !legend.super_rainbow
     }}>
       <img class="w-full h-full aspect-square cursor-pointer" src={`/img/${legend.id}.png`} onClick={() => merged.onClick(legend.id)} />
