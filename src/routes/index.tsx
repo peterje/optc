@@ -51,16 +51,17 @@ const sortByOrder = <T extends Legend>(arr: T[], order: string[]): T[] => {
 
 const Index = () => {
   const { supportedLegends, localStorageLegends, localStorageSettings: settings, mutateLegends } = useRouteData<typeof routeData>();
-  if (supportedLegends.latest) {
+  createEffect(() => {
     const savedData = localStorage.getItem("legends")
+    if (!supportedLegends.latest) return
     if (savedData) {
       mutateLegends(JSON.parse(savedData) as Legend[])
     } else {
-      const newSaveData: Legend[] = (supportedLegends()).orderedIDs.map(createLegend)
+      const newSaveData: Legend[] = supportedLegends().orderedIDs.map(createLegend)
       localStorage.setItem("legends", JSON.stringify(newSaveData))
       mutateLegends(newSaveData)
     }
-  }
+  })
   const isLoading = !supportedLegends.latest || !settings.latest || !localStorageLegends.latest
   console.log(supportedLegends.latest, supportedLegends.error)
   console.log(settings.latest, settings.error)
