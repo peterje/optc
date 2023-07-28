@@ -48,7 +48,9 @@ const sortByOrder = <T extends Legend>(arr: T[], order: string[]): T[] => {
 const Index = () => {
   const { supportedLegends, localStorageLegends, localStorageSettings: settings } = useRouteData<typeof routeData>();
   const isLoading = !supportedLegends.latest || !settings.latest || !localStorageLegends.latest
-  console.log(supportedLegends, localStorageLegends, settings)
+  console.log(supportedLegends.latest, supportedLegends.error)
+  console.log(settings.latest, settings.error)
+  console.log(localStorageLegends.latest, localStorageLegends.error)
   if (isLoading) return <span class="loading loading-spinner loading-md"></span>
   createEffect(() => { localStorage.setItem("settings", JSON.stringify(settings())) })
   createEffect(() => { localStorage.setItem("legends", JSON.stringify(localStorageLegends())) })
