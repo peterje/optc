@@ -1,5 +1,5 @@
 // @refresh reload
-import { Show, Suspense, createSignal } from "solid-js";
+import { Suspense } from "solid-js";
 import {
   Body,
   ErrorBoundary,
@@ -13,10 +13,8 @@ import {
   Title,
 } from "solid-start";
 import "./root.css";
-import {Index} from "./routes";
 import { Toaster } from "solid-toast";
 
-export const [model_open, set_model_open] = createSignal(false)
 export default function Root() {
   return (
     <Html lang="en" class="bg-[url(/img/bg.jpg)] bg-cover bg-repeat-round p-16 bg-fixed">
@@ -31,8 +29,10 @@ export default function Root() {
       <Body>
         <Suspense>
           <ErrorBoundary>
-              <Toaster/>
-              <Index />
+            <Routes>
+              <FileRoutes />
+              <Toaster />
+            </Routes >
           </ErrorBoundary>
         </Suspense>
         <Scripts />

@@ -1,19 +1,27 @@
-import { ParentComponent } from "solid-js"
-import { ClickHandler, increase_level, set_legend_click_handler, toggle_property } from "~/data/state"
+import { createSignal, ParentComponent } from "solid-js"
 
-const ModeButton: ParentComponent<{ handler: ClickHandler }> = (props) => (
-    <div class="flex items-center pl-3">
-        <input onInput={() => { set_legend_click_handler(() => props.handler) }} id="mode-select" type="radio" value="" name="list-radio" class="radio radio-info" />
-        <label for="mode-select" class="w-full py-3 ml-2 text-sm font-medium ">{props.children}</label>
-    </div>
+export const [mode, setMode] = createSignal<Mode>(Mode.Select)
+export const enum Mode {
+  Select,
+  Rainbow,
+  SuperRainbow,
+  Remove,
+  LLB
+}
+
+const ModeButton: ParentComponent<{ mode: Mode }> = (props) => (
+  <div class="flex items-center pl-3">
+    <input onChange={() => { setMode(props.mode) }} id="mode-select" type="radio" value="" checked={mode() === props.mode} name="list-radio" class="radio radio-info" />
+    <label for="mode-select" class="w-full py-3 ml-2 text-sm font-medium ">{props.children}</label>
+  </div>
 )
 
-export const ModeSelect = () => (
-    <div class="flex flex-row justify-center">
-        <ModeButton handler={(id: number) => toggle_property("selected", id)}>Select Mode</ModeButton>
-        <ModeButton handler={(id: number) => toggle_property("rainbow", id)}>Rainbow Mode</ModeButton>
-        <ModeButton handler={(id: number) => toggle_property("super_rainbow", id)}>Super-Rainbow Mode</ModeButton>
-        <ModeButton handler={(id: number) => toggle_property("removed_by_user", id)}>Remove Mode</ModeButton>
-        <ModeButton handler={(id: number) => increase_level(id)}>LLB Mode</ModeButton>
-    </div>
-)
+export const ModeSelect = () => {
+  return < div class="flex flex-row justify-center" >
+    <ModeButton mode={Mode.Select}>Select Mode</ModeButton>
+    <ModeButton mode={Mode.Rainbow}>Rainbow Mode</ModeButton>
+    <ModeButton mode={Mode.SuperRainbow}>Super-Rainbow Mode</ModeButton>
+    <ModeButton mode={Mode.Remove}>Remove Mode</ModeButton>
+    <ModeButton mode={Mode.LLB}>LLB Mode</ModeButton>
+  </div >
+}

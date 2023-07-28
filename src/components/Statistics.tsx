@@ -1,15 +1,24 @@
 import { Component } from "solid-js";
-import { legends, is_evolution, num_total_legends, num_unique_legends } from "~/data/state";
-const selected_base_legends = () => legends.filter((legend) => legend.selected && !is_evolution(legend.id))
-const selected_evolution_legends = () => legends.filter((legend) => legend.selected && is_evolution(legend.id))
-const rainbow_legends = () => legends.filter((legend) => legend.rainbow)
-const super_rainbow_legends = () => legends.filter((legend) => legend.super_rainbow)
-export const Statistics: Component = () =>
-(
+import { useRouteData } from "solid-start";
+import { routeData } from "~/routes";
+import { Legend } from "~/data/state";
+export const Statistics: Component = () => {
+  const { localStorageLegends: legends, supportedLegends } = useRouteData<typeof routeData>()
+  if (!legends.latest || !supportedLegends.latest) return
+  const numUniqueLegends = supportedLegends().orderedIDs.length - supportedLegends().evolutionIDs.length
+  const numTotalLegends = supportedLegends().orderedIDs.length
+  const isBase = (legend: Legend) => !!supportedLegends().baseIDs.find(l => l == legend.id)
+  const isSelected = (legend: Legend) => legend.selected
+  const selectedLegends = () => legends().filter(isSelected)
+  const selectedBaseLegends = () => selectedLegends().filter(isBase)
+  const rainbowLegends = () => legends().filter(l => l.rainbow)
+  const superRainbowLegends = () => legends().filter(l => l.super_rainbow)
+  return (
     <div class="flex text-center flex-col justify-center pb-4 font-bold">
-        <span class="text-info">Unique Legends - {selected_base_legends().length} / {num_unique_legends}</span>
-        <span class="text-warning">Total Legends - {selected_base_legends().length + selected_evolution_legends().length} / {num_total_legends}</span>
-        <span class="text-success">Rainbowed Legends - {rainbow_legends().length} / {num_total_legends}</span>
-        <span class="text-error">Super Rainbowed Legends - {super_rainbow_legends().length} / {num_total_legends}</span>
+      <span class="text-info">Unique Legends - {selectedBaseLegends().length} / {numUniqueLegends}</span>
+      <span class="text-warning">Total Legends - {selectedLegends().length} / {numTotalLegends}</span>
+      <span class="text-success">Rainbowed Legends - {rainbowLegends().length} / {numTotalLegends}</span>
+      <span class="text-error">Super Rainbowed Legends - {superRainbowLegends().length} / {numTotalLegends}</span>
     </div>
-)
+  )
+}
