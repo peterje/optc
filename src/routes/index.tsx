@@ -16,14 +16,18 @@ export function routeData() {
   const [supportedLegends] = createResource(getSupportedLegends)
   const [localStorageLegends, { mutate: mutateLegends }] = createResource(async () => {
     const savedData = localStorage.getItem("legends")
-    if (savedData) return JSON.parse(savedData) as Legend[]
+    if (savedData) {
+      return JSON.parse(savedData) as Legend[]
+    }
     const newSaveData: Legend[] = (await getSupportedLegends()).orderedIDs.map(createLegend)
     localStorage.setItem("legends", JSON.stringify(newSaveData))
     return newSaveData
   })
   const [localStorageSettings, { mutate: mutateSettings }] = createResource(async () => {
     const savedSettings = localStorage.getItem("settings")
-    if (savedSettings) return JSON.parse(savedSettings) as Settings
+    if (savedSettings) {
+      return JSON.parse(savedSettings) as Settings
+    }
     const newSettings: Settings = { hideBaseForms: false }
     localStorage.setItem("settings", JSON.stringify(newSettings))
     return newSettings
