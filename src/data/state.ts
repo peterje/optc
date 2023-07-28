@@ -89,6 +89,8 @@ export const update_cached_legends = () => {
 if (cached_legends) {
     set_legends(JSON.parse(cached_legends))
     // Determine if show evolutions is on from cached legends
+    const hideEvos = JSON.parse(localStorage.getItem("evolutions_hidden") || "false")
+    console.log(hideEvos)
     const cached_evolutions = JSON.parse(cached_legends).filter((legend: Legend) => is_evolution(legend.id))
     const all_removed_by_evolution_setting = cached_evolutions.some((legend: Legend) => legend.removed_by_evolution_setting)
     set_evolutions_hidden(all_removed_by_evolution_setting)
@@ -119,7 +121,9 @@ export const select_all_legends = () => {
     update_cached_legends()
 }
 export const toggle_show_evolutions = () => {
-    set_evolutions_hidden((v) => !v)
-    set_legends((e) => is_evolution(e.id), "removed_by_evolution_setting", v => !v)
+    const showEvos = JSON.parse(localStorage.getItem("evolutions_hidden") || "false")
+    localStorage.setItem("evolutions_hidden", JSON.stringify(!showEvos))
+    set_evolutions_hidden((v) => !showEvos)
+    set_legends((e) => is_evolution(e.id), "removed_by_evolution_setting", v => !showEvos)
     update_cached_legends()
 }
