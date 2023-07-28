@@ -22,7 +22,22 @@ const [image_saving, set_image_saving] = createSignal(false)
 const [import_code, set_import_code] = createSignal("")
 const export_share_code = (legends: Legend[]) => navigator.clipboard.writeText(encode_legends(legends))
 const encode_legends = (legends: Legend[]) => encode(new TextEncoder().encode(JSON.stringify(legends)))
-const decode_legends = (encoded: string) => JSON.parse(new TextDecoder().decode(decode(encoded))) as Legend[]
+const decode_legends = (encoded: string) => {
+    const importedLegends: Legend[] = []
+    const decoded = JSON.parse(new TextDecoder().decode(decode(encoded))) as Legend[]
+    const withFixedKeys = decoded.map(legend => ({...legend, id: String(legend.id)}))
+    const importedLegendIDs = new Set<string>()
+    for(const decodedLegend of decoded){
+        const legendID = String(decodedLegend.id) // Legacy share-codes used numbers for IDs
+        if(importedLegendIDs.has(legendID)){
+            continue
+        }
+        importedLegendIDs.add(legendID)
+        importedLegends.push({...decodedLegend, id: legendID})
+    }
+    console.log(importedLegends)
+    return importedLegends
+}
 export const Operations: Component = () => {
 
 

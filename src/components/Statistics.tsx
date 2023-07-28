@@ -6,10 +6,10 @@ export const Statistics: Component = () => {
   const numUniqueLegends = numTotalLegends - getLegendsDataFromJSON().evolutionIDs.length
 
   const isEvolution = (legend: Legend) => !!getLegendsDataFromJSON().evolutionIDs.find(l => l == legend.id)
-  const isSelected = (legend: Legend) => legend.selected
+  const isSelected = (legend: Legend) => legend.selected || legend.rainbow || legend.super_rainbow
   const selectedLegends = () => legends().filter(isSelected)
   const selectedUniqueLegends = () => selectedLegends().filter(legend => !isEvolution(legend))
-  const rainbowLegends = () => legends().filter(l => l.rainbow)
+  const rainbowLegends = () => legends().filter(l => l.rainbow || l.super_rainbow)
   const superRainbowLegends = () => legends().filter(l => l.super_rainbow)
   return (
     <div class="flex text-center flex-col justify-center pb-4 font-bold">
