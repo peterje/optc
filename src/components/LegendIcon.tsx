@@ -19,7 +19,7 @@ export const LegendIcon = (props: { legend: Legend, onClick?: (legend_id: string
       default: break
     }
   }
-  const merged = mergeProps({ onClick: defaultClickHandler, forceShow: false })
+  const merged = mergeProps({ onClick: defaultClickHandler, forceShow: false }, props)
   return (
     <div class="relative" classList={{
       "icon-selected": legend.selected,
