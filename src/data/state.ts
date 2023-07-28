@@ -90,7 +90,7 @@ if (cached_legends) {
     set_legends(JSON.parse(cached_legends))
     // Determine if show evolutions is on from cached legends
     const cached_evolutions = JSON.parse(cached_legends).filter((legend: Legend) => is_evolution(legend.id))
-    const all_removed_by_evolution_setting = cached_evolutions.every((legend: Legend) => legend.removed_by_evolution_setting)
+    const all_removed_by_evolution_setting = cached_evolutions.any((legend: Legend) => legend.removed_by_evolution_setting)
     set_evolutions_hidden(all_removed_by_evolution_setting)
     add_missing_legends()
 }
