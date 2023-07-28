@@ -1,6 +1,5 @@
 import { createSignal, ParentComponent } from "solid-js"
 
-export const [mode, setMode] = createSignal<Mode>(Mode.Select)
 export const enum Mode {
   Select,
   Rainbow,
@@ -8,6 +7,7 @@ export const enum Mode {
   Remove,
   LLB
 }
+export const [mode, setMode] = createSignal<Mode>(Mode.Select)
 
 const ModeButton: ParentComponent<{ mode: Mode }> = (props) => (
   <div class="flex items-center pl-3">
