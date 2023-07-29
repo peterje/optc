@@ -1,5 +1,6 @@
 import { objectKeys } from "ts-extras"
 import json from "~/data/legends.json"
+import {from} from "solid-js";
 export type Legend = {
   id: string
   level: number
@@ -46,6 +47,21 @@ export const getLegendsDataFromJSON = () => {
   }
   return response
 }
+
+const fromJSON = getLegendsDataFromJSON()
+export const baseIDs = new Set<string>(fromJSON.baseIDs)
+export const evolutionIDs = new Set<string>(fromJSON.evolutionIDs)
+export const evolutionToBase = new Map<string, string>()
+export const baseToEvolutions = new Map<string, string[]>()
+for (const baseID of fromJSON.baseIDs) {
+  const evolutions = fromJSON.evolutionMap[baseID];
+  baseToEvolutions.set(baseID, evolutions)
+  for(const evolutionID of evolutions){
+    evolutionToBase.set(evolutionID, baseID)
+  }
+}
+export const evolutionMap = fromJSON.evolutionMap
+export const orderedIDs = fromJSON.orderedIDs
 
 export type Settings = {
   hideBaseForms: boolean

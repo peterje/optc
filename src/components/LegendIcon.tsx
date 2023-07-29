@@ -1,11 +1,11 @@
-import { Legend, by, getLegendsDataFromJSON } from "~/data/state"
+import { Legend, by, baseIDs } from "~/data/state"
 import { legends, settings, setLegends } from "~/data/client"
 import { mode, Mode } from "./ModeSelect"
 import { mergeProps } from "solid-js"
 
 export const LegendIcon = (props: { legend: Legend, onClick?: (legend_id: string) => void, forceShow?: boolean }) => {
   const legend = props.legend
-  const isBaseForm = (legendID: string): boolean => !!getLegendsDataFromJSON().baseIDs.find(id => id === legendID)
+  const isBaseForm = (legendID: string): boolean => baseIDs.has(legendID)
   const defaultClickHandler = (id: string) => {
     switch (mode()) {
       case Mode.Select: setLegends(by(legends(), l => l.id === id, l => ({ ...l, selected: !l.selected }))); break

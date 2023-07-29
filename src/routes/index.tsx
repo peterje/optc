@@ -3,7 +3,7 @@ import { LegendIcon } from "~/components/LegendIcon";
 import { ModeSelect } from "~/components/ModeSelect";
 import { Operations } from "~/components/Operations";
 import { Statistics } from "~/components/Statistics";
-import { getLegendsDataFromJSON, Legend } from "~/data/state";
+import { orderedIDs, Legend } from "~/data/state";
 import { legends } from "~/data/client"
 
 const sortByOrder = <T extends Legend>(arr: T[], order: string[]): T[] => {
@@ -31,7 +31,7 @@ const Index = () => {
         <ModeSelect />
       </div>
       <div id="legend-grid" class="w-full bg-[url(/img/bg-main.png)] border-2 border-double rounded-md border-yellow-900 grid grid-cols-auto-fit p-8 gap-2 justify-center">
-        <For each={sortByOrder(legends(), getLegendsDataFromJSON().orderedIDs)}>
+        <For each={sortByOrder(legends(), orderedIDs)}>
           {(legend) => <LegendIcon legend={legend} />}
         </For >
       </div >

@@ -25,7 +25,6 @@ const encode_legends = (legends: Legend[]) => encode(new TextEncoder().encode(JS
 const decode_legends = (encoded: string) => {
     const importedLegends: Legend[] = []
     const decoded = JSON.parse(new TextDecoder().decode(decode(encoded))) as Legend[]
-    const withFixedKeys = decoded.map(legend => ({...legend, id: String(legend.id)}))
     const importedLegendIDs = new Set<string>()
     for(const decodedLegend of decoded){
         const legendID = String(decodedLegend.id) // Legacy share-codes used numbers for IDs
@@ -35,7 +34,6 @@ const decode_legends = (encoded: string) => {
         importedLegendIDs.add(legendID)
         importedLegends.push({...decodedLegend, id: legendID})
     }
-    console.log(importedLegends)
     return importedLegends
 }
 export const Operations: Component = () => {
