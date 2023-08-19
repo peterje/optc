@@ -4,7 +4,7 @@ import { encode, decode } from "base64-arraybuffer"
 import html2canvas from "html2canvas"
 import { Modal } from "./Modal"
 import { Legend, createLegend, by } from "~/data/state"
-import { legends, settings, setLegends, setSettings } from "~/data/client"
+import { legends, settings, setLegends, setSettings, addMisingLegends } from "~/data/client"
 import { LegendIcon } from "./LegendIcon"
 import { saveAs } from "file-saver"
 
@@ -42,6 +42,7 @@ export const Operations: Component = () => {
   const import_share_code = (share_code: string) => {
     const decoded_legends = decode_legends(share_code)
     setLegends(decoded_legends)
+    addMisingLegends()
   }
   return (
     <div class="flex flex-col xl:flex-row justify-center gap-2 ">

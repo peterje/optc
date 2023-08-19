@@ -1,10 +1,10 @@
-import { For } from "solid-js";
+import { For, onMount } from "solid-js";
 import { LegendIcon } from "~/components/LegendIcon";
 import { ModeSelect } from "~/components/ModeSelect";
 import { Operations } from "~/components/Operations";
 import { Statistics } from "~/components/Statistics";
-import { orderedIDs, Legend } from "~/data/state";
-import { legends } from "~/data/client"
+import { orderedIDs, Legend, evolutionIDs, evolutionMap, createLegend } from "~/data/state";
+import { addMisingLegends, legends, setLegends } from "~/data/client"
 
 const sortByOrder = <T extends Legend>(arr: T[], order: string[]): T[] => {
   const orderMap: { [key: string]: number } = {};
@@ -21,6 +21,10 @@ const sortByOrder = <T extends Legend>(arr: T[], order: string[]): T[] => {
 }
 
 const Index = () => {
+  onMount( () => {
+    addMisingLegends()
+  })
+
   return (
     <main class="flex flex-col justify-center justify-items-center text-center items-center">
       <div class="flex flex-col justify-center">
