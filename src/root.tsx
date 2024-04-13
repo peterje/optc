@@ -14,8 +14,10 @@ import {
 } from "solid-start";
 import "./root.css";
 import { Toaster } from "solid-toast";
+import { inject } from "@vercel/analytics"
 
 export default function Root() {
+  inject()
   return (
     <Html lang="en" class="bg-[url(/img/bg.jpg)] bg-cover bg-repeat-round p-16 bg-fixed">
       <Head>
@@ -31,6 +33,7 @@ export default function Root() {
           <ErrorBoundary>
             <Routes>
               <FileRoutes />
+
               <Toaster />
             </Routes >
           </ErrorBoundary>
