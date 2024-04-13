@@ -20,6 +20,7 @@
     "@solidjs/meta": "^0.28.2",
     "@solidjs/router": "^0.8.2",
     "@types/base64-arraybuffer": "^0.2.0",
+    "@vercel/analytics": "^1.2.2",
     "base64-arraybuffer": "^1.0.2",
     "chalk": "^5.3.0",
     "daisyui": "^2.51.6",
