@@ -1,0 +1,137 @@
+@import 'tailwindcss';
+@plugin "daisyui";
+
+@theme {
+  --font-*: initial;
+  --font-sans: Inter, sans-serif;
+
+  --background-image-background-image: url('/bg.jpg');
+  --background-image-background-texture: url('/bg-main.png');
+  --background-image-footer-texture: url('/img/footer.png');
+  --background-image-header-texture: url('/img/header.png');
+
+  --grid-template-columns-20: repeat(20, minmax(0, 1fr));
+  --grid-template-columns-auto-fit: repeat(auto-fit, minmax(66px, 1fr));
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+@utility text-shadow {
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+@utility icon-selected {
+  @apply border-2 border-red-600 rounded-xs opacity-100;
+}
+
+@utility btn {
+  text-transform: none;
+}
+
+@utility icon-rainbow {
+  @apply opacity-100;
+  border: 3px solid transparent;
+  background: linear-gradient(
+      to bottom right,
+      red,
+      yellow,
+      lime,
+      aqua,
+      blue,
+      magenta,
+      red
+    )
+    border-box;
+}
+
+@utility icon-super-rainbow {
+  @apply opacity-100;
+  border: 3px solid transparent;
+  background: linear-gradient(
+      to bottom right,
+      #dd6f56,
+      #f06a73,
+      #cf4ab5,
+      #9662d1,
+      #53b9e1,
+      #5bfed3,
+      #c2f9a8,
+      #f7f56e,
+      #f6c40b,
+      #dd6f56,
+      #dd6f56,
+      #f06a73,
+      #cf4ab5,
+      #9662d1,
+      #53b9e1,
+      #5bfed3,
+      #c2f9a8,
+      #f7f56e,
+      #f6c40b,
+      #dd6f56,
+      #dd6f56,
+      #f06a73,
+      #cf4ab5,
+      #9662d1,
+      #53b9e1,
+      #5bfed3,
+      #c2f9a8,
+      #f7f56e,
+      #f6c40b,
+      #dd6f56,
+      #dd6f56,
+      #f06a73,
+      #cf4ab5,
+      #9662d1,
+      #53b9e1,
+      #5bfed3,
+      #c2f9a8,
+      #f7f56e,
+      #f6c40b,
+      #dd6f56,
+      #dd6f56,
+      #f06a73,
+      #cf4ab5,
+      #9662d1,
+      #53b9e1,
+      #5bfed3,
+      #c2f9a8,
+      #f7f56e,
+      #f6c40b,
+      #dd6f56
+    )
+    border-box;
+  box-shadow:
+    2px 2px 5px 2px #ff8080,
+    -3px 2px 5px 2px #ffe488,
+    -3px -2px 5px 2px #8cff85,
+    3px -2px 5px 2px #80c7ff,
+    3px 2px 5px 2px #e488ff,
+    -3px 2px 5px 2px #ff616b,
+    -3px -2px 10px 2px #8e5cff,
+    2px 2px 5px 2px rgba(0, 0, 0, 0);
+}
+
+@utility icon-removed {
+  display: none;
+}
