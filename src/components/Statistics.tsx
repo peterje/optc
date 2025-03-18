@@ -28,14 +28,12 @@ export const Statistics: Component = () => {
 
   const rainbowLegends = () => legends().filter(l => l.rainbow || l.super_rainbow)
   const superRainbowLegends = () => legends().filter(l => l.super_rainbow)
-  const maxLevelLegends = () => legends().filter(l => l.level === 5).length;
   return (
     <div class="flex text-center flex-col justify-center pb-4 font-bold">
       <span class="text-info">Unique Legends - {getUniqueCount(legends())} / {numUniqueLegends}</span>
       <span class="text-warning">Total Legends - {selectedLegends().length} / {numTotalLegends}</span>
       <span class="text-success">Rainbowed Legends - {rainbowLegends().length} / {numTotalLegends}</span>
       <span class="text-error">Super Rainbowed Legends - {superRainbowLegends().length} / {numTotalLegends}</span>
-      <span class="text-primary">LLB 5 Legends - {maxLevelLegends()} / {numTotalLegends}</span>
     </div>
   )
 }
