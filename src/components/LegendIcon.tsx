@@ -23,7 +23,7 @@ export const LegendIcon = (props: { legend: Legend, onClick?: (legend_id: string
       "icon-rainbow": legend.rainbow,
       "icon-super-rainbow": legend.super_rainbow,
       "icon-removed": !merged.forceShow && (legend.removed_by_user || (isBaseForm(legend.id) && settings().hideBaseForms)),
-      "opacity-50 hover:opacity-80": !legend.selected && !legend.rainbow && !legend.super_rainbow,
+      "opacity-35 hover:opacity-60": !legend.selected && !legend.rainbow && !legend.super_rainbow,
       [`llb-${legend.level}`]: true,
     }}>
       <img class="w-full h-full aspect-square cursor-pointer" src={`/img/${legend.id}.png`} onClick={() => merged.onClick(legend.id)} />
