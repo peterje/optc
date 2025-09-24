@@ -120,7 +120,7 @@
       #f6c40b,
       #dd6f56
     )
-    border-box;
+    border-box !important;
   box-shadow:
     2px 2px 5px 2px #ff8080,
     -3px 2px 5px 2px #ffe488,
