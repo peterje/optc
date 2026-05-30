@@ -28,7 +28,7 @@ const Index = () => {
   return (
     <main class="flex flex-col justify-center justify-items-center text-center items-center">
       <div class="flex flex-col justify-center">
-        <span> 2019 - 2023. Created by <a class="link text-warning" href="https://www.reddit.com/user/antonlabz/">antonlabz</a>. Maintained by <a class="link text-warning" href="https://www.reddit.com/message/compose/?to=CubeoHS&amp;subject=OPTC%20Legend%20Checklist">CubeoHS</a> and <a href="https://github.com/peterje" class="link text-warning">peterje</a>.  </span>
+        <span> 2019 - 2023. Created by <a class="link text-warning" href="https://www.reddit.com/user/antonlabz/">antonlabz</a>. Maintained by <a class="link text-warning" href="https://www.reddit.com/message/compose/?to=andantonelli&subject=OPTC%20Legend%20Checklist">Nexaard</a>.  </span>
         <img src="/img/header.png" class="w-min self-center" alt={'Header image'}></img>
         <Statistics />
         <Operations />
